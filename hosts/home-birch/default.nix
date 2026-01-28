@@ -2,7 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./nvidia.nix
+    # ./nvidia.nix
   ];
 
   # Bootloader.
@@ -12,12 +12,9 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.initrd.luks.devices."luks-74859448-03b4-4d15-8876-11e22b3813f4".device =
-    "/dev/disk/by-uuid/74859448-03b4-4d15-8876-11e22b3813f4";
-
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.hostName = "birch-nixos";
+  networking.hostName = "nixos";
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -59,5 +56,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
