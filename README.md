@@ -17,11 +17,11 @@ The configuration of each application has two ideas in mind:
 |                                                                | Tools                                                                                |
 |----------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | **Window Manager**                                             | [Hyprland](https://hypr.land/)                                                       |
-| **Terminal**                                                   | [alacritty](https://alacritty.org/)                                                      |
-| **Status Bar** / **Notifier** / **Launcher** / **lockscreens** | [quickshell](https://noctalia.dev)                                               |
-| **Display Manager**                                            | [sddm](https://github.com/apognu/tuigreet)                                       |
+| **Terminal**                                                   | [alacritty](https://alacritty.org/)                                                  |
+| **Status Bar** / **Notifier** / **Launcher** / **lockscreens** | [quickshell](https://noctalia.dev)                                                   |
+| **Display Manager**                                            | [sddm](https://github.com/apognu/tuigreet)                                           |
 | **File Manager**                                               | [Yazi](https://github.com/sxyazi/yazi) + [Nautilus](https://apps.gnome.org/Nautilus) |
-| **Shell**                                                      | [Fish](https://www.zsh.org) + [Starship](https://starship.rs)                         |
+| **Shell**                                                      | [Fish](https://www.zsh.org)                                                          |
 | **Media Player**                                               | [mpv](https://mpv.io)                                                                |
 | **Text Editor**                                                | [Neovim](https://neovim.io)                                                          |
 | **Image Viewer**                                               | [imv](https://sr.ht/~exec64/imv)                                                     |

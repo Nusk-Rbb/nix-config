@@ -16,7 +16,6 @@ let
         nixpkgs
         home-manager
         inputs
-        # sops-nix
         nixos-generators
         ;
       overlays = overlays;

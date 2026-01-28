@@ -15,7 +15,6 @@ nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate { } [
       nixpkgs
       home-manager
       overlays
-      sops-nix
       nixos-generators
       ;
   })
@@ -25,7 +24,6 @@ nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate { } [
       nixpkgs
       home-manager
       overlays
-      sops-nix
       ;
   })
   (import ./systems/home-oak.nix {
@@ -34,7 +32,6 @@ nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate { } [
       nixpkgs
       home-manager
       overlays
-      sops-nix
       ;
   })
 ]

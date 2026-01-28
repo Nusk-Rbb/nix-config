@@ -1,7 +1,6 @@
 {
   nixpkgs,
   home-manager,
-  sops-nix,
   inputs,
   overlays,
   ...
@@ -15,7 +14,7 @@
       ../../../modules/linux/base
       ../../../config
       ../../../generators/docker.nix
-      sops-nix.nixosModules.sops
+      # sops-nix.nixosModules.sops
       (
         { ... }:
         {
