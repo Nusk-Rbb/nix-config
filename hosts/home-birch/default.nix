@@ -33,6 +33,8 @@
     shell = pkgs.zsh;
   };
 
+  programs.fish.enable = true;
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
