@@ -22,7 +22,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.hostName = "oak-nixos";
+  networking.hostName = "nixos";
 
   # Configure keymap in X11
   services.xserver.xkb = {

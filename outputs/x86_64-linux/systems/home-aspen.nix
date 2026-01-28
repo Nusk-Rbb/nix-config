@@ -14,7 +14,6 @@
       ../../../modules/linux/base
       ../../../config
       ../../../generators/docker.nix
-      # sops-nix.nixosModules.sops
       (
         { ... }:
         {
