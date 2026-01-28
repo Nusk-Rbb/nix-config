@@ -2,7 +2,6 @@
   nixpkgs,
   home-manager,
   nix-darwin,
-  sops-nix,
   nixos-generators,
   ...
 }@inputs:
