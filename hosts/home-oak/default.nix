@@ -38,7 +38,7 @@
       "networkmanager"
       "wheel"
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   nix.settings.experimental-features = [
