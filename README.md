@@ -1,4 +1,4 @@
-# .dotfiles
+# My Nix config
 
 > The setup where you can officially say: *"I use Nix and Neovim, btw"* 😎
 
@@ -17,11 +17,11 @@ The configuration of each application has two ideas in mind:
 |                                                                | Tools                                                                                |
 |----------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | **Window Manager**                                             | [Hyprland](https://hypr.land/)                                                       |
-| **Terminal**                                                   | [Ghostty](https://ghostty.org/)                                                      |
-| **Status Bar** / **Notifier** / **Launcher** / **lockscreens** | [noctalia-shell](https://noctalia.dev)                                               |
-| **Display Manager**                                            | [tuigreet](https://github.com/apognu/tuigreet)                                       |
+| **Terminal**                                                   | [alacritty](https://alacritty.org/)                                                      |
+| **Status Bar** / **Notifier** / **Launcher** / **lockscreens** | [quickshell](https://noctalia.dev)                                               |
+| **Display Manager**                                            | [sddm](https://github.com/apognu/tuigreet)                                       |
 | **File Manager**                                               | [Yazi](https://github.com/sxyazi/yazi) + [Nautilus](https://apps.gnome.org/Nautilus) |
-| **Shell**                                                      | [Zsh](https://www.zsh.org) + [Starship](https://starship.rs)                         |
+| **Shell**                                                      | [Fish](https://www.zsh.org) + [Starship](https://starship.rs)                         |
 | **Media Player**                                               | [mpv](https://mpv.io)                                                                |
 | **Text Editor**                                                | [Neovim](https://neovim.io)                                                          |
 | **Image Viewer**                                               | [imv](https://sr.ht/~exec64/imv)                                                     |
@@ -31,23 +31,19 @@ This setup also include full disk encryption and user auth via Yubikeys. Secrets
 
 ## Screenshots
 
-![Alt Text](https://drive.google.com/uc?export=view&id=1FRGqCZ4RS9QigVkTldzHaOeVyJSZVSSE)
-![Alt Text](https://drive.google.com/uc?export=view&id=1pJUVzmcKdJU_2lOdGMzKpiKd4rxzCLXh)
-![Alt Text](https://drive.google.com/uc?export=view&id=1BuxdYWC8NKWpXXxSmOiyGMO3FgfE0NN1)
-
 ## Getting Started
 
 Git clone to the root of your home directory:
 
 ```bash
 cd ~
-git clone https://github.com/okwilkins/.dotfiles
+git clone https://github.com/Nusk-Rbb/nix-config.git
 ```
 
 To install the setup for a given host run:
 
 ```bash
-sudo nixos-rebuild switch --flake .#<INSERT HOST>
+sudo nixos-rebuild switch --flake .
 ```
 
 ## Project Structure
@@ -72,17 +68,3 @@ sudo nixos-rebuild switch --flake .#<INSERT HOST>
 ├── outputs                         | Nix Flake outputs for each host.
 └── overlays                        | Allows patching of any packages that maybe broken on a particular system.
 ```
-
-## Thanks To
-
-A big thank you to the following people for their inspiration and help:
-
-- [ThePrimeagen](https://github.com/ThePrimeagen)
-- [ryan4yin](https://github.com/ryan4yin)
-- [EmergentMind](https://github.com/EmergentMind)
-- [Phantas0s](https://github.com/Phantas0s)
-- [omerxx](https://github.com/omerxx)
-- [vfarcic](https://github.com/vfarcic)
-- [elliotminns](https://github.com/elliottminns)
-- [vl-cr](https://github.com/vl-cr)
-
