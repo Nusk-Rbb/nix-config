@@ -1,67 +1,40 @@
 {
-    description = "NixOS configuration";
+  description = "My Nix configuration for NixOS";
 
-    # All inputs for the system
-    inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
-        home-manager = {
-            url = "github:nix-community/home-manager";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        nur = {
-            url = "github:nix-community/NUR";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # All outputs for the system (configs)
-    outputs = { home-manager, nixpkgs, nur, ... }@inputs: 
-        let
-            system = "x86_64-linux"; #current system
-            pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-            lib = nixpkgs.lib;
-
-            # This lets us reuse the code to "create" a system
-            # Credits go to sioodmy on this one!
-            # https://github.com/sioodmy/dotfiles/blob/main/flake.nix
-            mkSystem = pkgs: system: hostname:
-                pkgs.lib.nixosSystem {
-                    system = system;
-                    modules = [
-                        { networking.hostName = hostname; }
-                        # General configuration (users, networking, sound, etc)
-                        ./modules/system/configuration.nix
-                        # Hardware config (bootloader, kernel modules, filesystems, etc)
-                        # DO NOT USE MY HARDWARE CONFIG!! USE YOUR OWN!!
-                        (./. + "/hosts/${hostname}/hardware-configuration.nix")
-                        home-manager.nixosModules.home-manager
-                        {
-                            home-manager = {
-                                useUserPackages = true;
-                                useGlobalPkgs = true;
-                                extraSpecialArgs = { inherit inputs; };
-                                # Home manager config (configures programs like firefox, zsh, eww, etc)
-                                users.nusk = (./. + "/hosts/${hostname}/user.nix");
-                            };
-                            nixpkgs.overlays = [
-                                # Add nur overlay for Firefox addons
-                                nur.overlay
-                                (import ./overlays)
-                            ];
-                        }
-                    ];
-                    specialArgs = { inherit inputs; };
-                };
-
-        in {
-            nixosConfigurations = {
-                # Now, defining a new system is can be done in one line
-                #                                 Architecture    Hostname
-                intel   = mkSystem inputs.nixpkgs "x86_64-linux"  "intel";
-                amd     = mkSystem inputs.nixpkgs "x86_64-linux"  "amd";
-                wsl     = mkSystem inputs.nixpkgs "x86_64-linux"  "wsl";
-            };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    argonaut = {
+      url = "github:darksworm/argonaut";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = inputs: import ./outputs inputs;
 }

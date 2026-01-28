@@ -1,0 +1,7 @@
+[flags]
+tree = true
+temperature_type = "c"
+dot_marker = false
+network_use_bytes = true
+enable_gpu = true
+process_memory_as_value = true
