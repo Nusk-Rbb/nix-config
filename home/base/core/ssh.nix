@@ -5,7 +5,7 @@
     enableDefaultConfig = false;
     matchBlocks = {
       "github.com" = {
-        identityFile = "${osConfig.system.homeDir}/.ssh/oli";
+        identityFile = "${osConfig.system.homeDir}/.ssh/github";
       };
     };
   };
