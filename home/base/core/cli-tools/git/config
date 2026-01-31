@@ -9,19 +9,9 @@
 [pull]
     rebase = true
 
-[rebase]
-    # Keep dates when rebasing
-    instructionFormat = %s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit
-
-[gpg]
-    format = ssh
-
 [commit]
     gpgsign = true
 	template = /home/nusk/.config/git/commit_template
 
 [core]
-    pager = delta
-
-[interactive]
-    diffFilter = delta --color-only
+	editor = vim
