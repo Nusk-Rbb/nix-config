@@ -1,48 +1,48 @@
 {
-    description = "My NixOS Flakes";
+  description = "NixOS desktop: niri + noctalia-shell";
 
-    inputs = {
-	    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-      nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
-      home-manager = {
-        url = "github:nix-community/home-manager/release-25.11";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      illogical-flake = {
-         url = "github:soymou/illogical-flake";
-         inputs.nixpkgs.follows = "nixpkgs";
-       };
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, illogical-flake, ... }@inputs:
-	let
-	    lib = nixpkgs.lib;
-	    system = "x86_64-linux";
-	    pkgs = nixpkgs.legacyPackages.${system};
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-	in
-    {
-		nixosConfigurations.nixos-personal = lib.nixosSystem {
-                inherit system;
-				modules = [
-                    ./system/configuration.nix
-				];
-                specialArgs = {
-                    inherit pkgs-unstable;
-                };
-        };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-		homeConfigurations = {
-			nusk = home-manager.lib.homeManagerConfiguration {
-				inherit pkgs;
-				modules = [ ./home ];
-                extraSpecialArgs = {
-                    inherit pkgs-unstable;
-                    inherit inputs;
-                };
-			};
-		};
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, home-manager, niri, noctalia, ... }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      nixosConfigurations.nixos-personal = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./system/configuration.nix
+          niri.nixosModules.niri
+        ];
+      };
+
+      homeConfigurations.nusk = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          ./home
+          niri.homeModules.niri
+          noctalia.homeModules.default
+        ];
+      };
     };
 }
