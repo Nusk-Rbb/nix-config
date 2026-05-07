@@ -3,13 +3,16 @@
 {
   programs.git = {
     enable = true;
-    user = {
-      name = "Nusk-Rbb";
-      email = "nuskrbb1741dn@gmail.com";
+    settings = {
+      user = {
+        name = "Nusk-Rbb";
+        email = "nuskrbb1741dn@gmail.com";
+      };
+      init.defaultBranch = "main";
+      core.editor = "vim";
+      commit.template = "${config.xdg.configHome}/github/commit_template";
     };
-    init.defaultBranch = "main";
-    core.editor = "vim";
-    commit.template = "${config.xdg.configHome}/github/commit_template";
+
     ignores = [
       ".DS_Store"
       "*.swp"
@@ -18,6 +21,7 @@
       "node_modules"
       ".vscode"
       ".idea"
+      "**/.claude/settings.local.json"
     ];
   };
 
