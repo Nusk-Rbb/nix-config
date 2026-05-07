@@ -2,8 +2,20 @@
 
 {
   programs.niri.settings = {
+    outputs."eDP-1" = {
+      mode = {
+        width = 1920;
+        height = 1080;
+        refresh = 60.0;
+        scale = 1.0;
+      };
+    };
+
     input = {
-      keyboard.xkb.layout = "us";
+      keyboard.xkb = {
+        layout = "us";
+        options = "ctrl:nocaps";
+      };
       touchpad = {
         tap = true;
         natural-scroll = true;
@@ -18,6 +30,10 @@
         { proportion = 2.0 / 3.0; }
       ];
       default-column-width = { proportion = 1.0 / 2.0; };
+      focus-ring = {
+        width = 1;
+        active.color = "#7fc8ff";
+      };
     };
 
     prefer-no-csd = true;
@@ -31,7 +47,7 @@
       "Mod+Return".action = spawn "ghostty";
       "Mod+B".action = spawn "vivaldi";
       "Mod+Shift+B".action = spawn "google-chrome-stable";
-      "Mod+E".action = spawn "zed";
+      "Mod+E".action = spawn "zeditor";
       "Mod+D".action = spawn "fuzzel";
       "Mod+Q".action = close-window;
       "Mod+Shift+E".action = quit;
@@ -56,23 +72,23 @@
       "Mod+8".action = focus-workspace 8;
       "Mod+9".action = focus-workspace 9;
 
-      "Mod+Shift+1".action = move-column-to-workspace 1;
-      "Mod+Shift+2".action = move-column-to-workspace 2;
-      "Mod+Shift+3".action = move-column-to-workspace 3;
-      "Mod+Shift+4".action = move-column-to-workspace 4;
-      "Mod+Shift+5".action = move-column-to-workspace 5;
-      "Mod+Shift+6".action = move-column-to-workspace 6;
-      "Mod+Shift+7".action = move-column-to-workspace 7;
-      "Mod+Shift+8".action = move-column-to-workspace 8;
-      "Mod+Shift+9".action = move-column-to-workspace 9;
+      "Mod+Shift+1".action.move-column-to-workspace = 1;
+      "Mod+Shift+2".action.move-column-to-workspace = 2;
+      "Mod+Shift+3".action.move-column-to-workspace = 3;
+      "Mod+Shift+4".action.move-column-to-workspace = 4;
+      "Mod+Shift+5".action.move-column-to-workspace = 5;
+      "Mod+Shift+6".action.move-column-to-workspace = 6;
+      "Mod+Shift+7".action.move-column-to-workspace = 7;
+      "Mod+Shift+8".action.move-column-to-workspace = 8;
+      "Mod+Shift+9".action.move-column-to-workspace = 9;
 
       "Mod+R".action = switch-preset-column-width;
       "Mod+F".action = maximize-column;
       "Mod+Shift+F".action = fullscreen-window;
 
-      "Print".action = screenshot;
-      "Ctrl+Print".action = screenshot-screen;
-      "Alt+Print".action = screenshot-window;
+      "Print".action.screenshot = {};
+      "Ctrl+Print".action.screenshot-screen = {};
+      "Alt+Print".action.screenshot-window = {};
 
       "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+";
       "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-";

@@ -5,13 +5,13 @@
     ./programs.nix
     ./niri.nix
     ./noctalia.nix
+    ./ghostty.nix
+    ./git.nix
   ];
 
   home.username = "nusk";
   home.homeDirectory = "/home/nusk";
   home.stateVersion = "25.11";
-
-  nixpkgs.config.allowUnfree = true;
 
   home.sessionVariables = {
     BROWSER = "vivaldi";
@@ -32,7 +32,12 @@
     brightnessctl
     playerctl
     pavucontrol
+    thunar
     fuzzel
+    bc
+    eza
+    claude-code
+    discord
   ];
 
   programs.home-manager.enable = true;

@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     vivaldi
     google-chrome
+    claude-code
   ];
 
   programs.vim = {
@@ -12,13 +13,4 @@
   };
 
   programs.zed-editor.enable = true;
-
-  programs.ghostty = {
-    enable = true;
-    settings = {
-      font-family = "JetBrainsMono Nerd Font";
-      font-size = 12;
-      window-decoration = false;
-    };
-  };
 }
