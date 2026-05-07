@@ -10,19 +10,21 @@ ghostty + zed/vim + vivaldi/chrome.
 
 ## Architecture
 
-Two outputs in `flake.nix` share the same `inputs`:
+A single output in `flake.nix`:
 
 - `nixosConfigurations.nixos-personal` — system, built from
-  `system/configuration.nix` plus `inputs.niri.nixosModules.niri`.
-- `homeConfigurations.nusk` — home-manager (standalone, **not** the NixOS
-  module), built from the `./home` directory plus
-  `inputs.niri.homeModules.niri` and `inputs.noctalia.homeModules.default`.
+  `system/configuration.nix` plus `inputs.niri.nixosModules.niri` and
+  `home-manager.nixosModules.home-manager`. Home-manager is integrated as a
+  NixOS module (`home-manager.users.nusk`), with `useGlobalPkgs = true` and
+  `useUserPackages = true`. The user's HM config imports `./home`,
+  `inputs.niri.homeModules.niri`, and `inputs.noctalia.homeModules.default`.
 
-Because home-manager is standalone, **system rebuild and home rebuild are
-independent steps** — changes to `home/` do not require `nixos-rebuild`.
+Because home-manager runs as a NixOS module, **`nixos-rebuild switch` applies
+both system and home changes** — there is no separate `home-manager switch`.
 
-`inputs` is forwarded to every module via `specialArgs` / `extraSpecialArgs`,
-so any module can take `{ inputs, ... }` to reach flake inputs directly.
+`inputs` is forwarded to every module via `specialArgs` /
+`home-manager.extraSpecialArgs`, so any module can take `{ inputs, ... }` to
+reach flake inputs directly.
 
 ### Module split
 
@@ -47,16 +49,10 @@ so any module can take `{ inputs, ... }` to reach flake inputs directly.
 
 ## Common commands
 
-System rebuild (run from repo root):
+System + home rebuild (run from repo root — applies both):
 
 ```sh
 sudo nixos-rebuild switch --flake .#nixos-personal
-```
-
-Home-manager rebuild:
-
-```sh
-home-manager switch --flake .#nusk
 ```
 
 Lock / update inputs (no `flake.lock` is committed yet — first build will
@@ -78,7 +74,7 @@ Iterating on a single module — evaluate the option to surface eval errors fast
 
 ```sh
 nix eval .#nixosConfigurations.nixos-personal.config.programs.niri.enable
-nix eval .#homeConfigurations.nusk.config.programs.ghostty.settings
+nix eval .#nixosConfigurations.nixos-personal.config.home-manager.users.nusk.programs.ghostty.settings
 ```
 
 ## Conventions and gotchas
@@ -93,8 +89,9 @@ nix eval .#homeConfigurations.nusk.config.programs.ghostty.settings
 - New home-manager files must be added to the `imports` list in
   `home/default.nix` — there is no auto-discovery.
 - `pkgs.vivaldi` and `pkgs.google-chrome` are unfree; `nixpkgs.config.allowUnfree`
-  is set in both `system/configuration.nix` and `home/default.nix` and both
-  must stay enabled.
+  is set once in `system/configuration.nix` and applies to HM via
+  `home-manager.useGlobalPkgs = true`. Do **not** set `nixpkgs.config.*` inside
+  `home/` — it errors under `useGlobalPkgs`.
 - niri's cachix (`https://niri.cachix.org`) is intentionally **not**
   preconfigured — add it via `cachix use niri` if local builds are slow.
 - The development branch for this work is `claude/nixos-desktop-setup-ZLv7v`
