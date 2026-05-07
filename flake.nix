@@ -2,10 +2,10 @@
   description = "NixOS desktop: niri + noctalia-shell";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,7 +23,6 @@
   outputs = { self, nixpkgs, home-manager, niri, noctalia, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
       nixosConfigurations.nixos-personal = nixpkgs.lib.nixosSystem {
@@ -32,16 +31,20 @@
         modules = [
           ./system/configuration.nix
           niri.nixosModules.niri
-        ];
-      };
-
-      homeConfigurations.nusk = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs; };
-        modules = [
-          ./home
-          niri.homeModules.niri
-          noctalia.homeModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs; };
+              users.nusk = {
+                imports = [
+                  ./home
+                  noctalia.homeModules.default
+                ];
+              };
+            };
+          }
         ];
       };
     };

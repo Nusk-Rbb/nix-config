@@ -10,6 +10,8 @@
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   time.timeZone = "Asia/Tokyo";
 
@@ -27,24 +29,25 @@
   };
 
   i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = [ pkgs.fcitx5-mozc ];
-    fcitx5.waylandFrontend = true;
-  };
-
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+    ];
   };
 
   programs.niri.enable = true;
-
-  services.greetd = {
+  services.displayManager.sddm = {
     enable = true;
-    settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd niri-session";
-      user = "greeter";
-    };
+    wayland.enable = true;
+    package = pkgs.kdePackages.sddm;
+    theme = "sddm-astronaut-theme";
+    extraPackages = with pkgs.kdePackages; [
+      qtmultimedia
+      qtsvg
+      qtvirtualkeyboard
+    ];
   };
 
   xdg.portal = {
@@ -77,7 +80,7 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
     nerd-fonts.symbols-only
   ];
@@ -88,7 +91,10 @@
     isNormalUser = true;
     description = "nusk";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+    shell = pkgs.fish;
   };
+
+  programs.fish.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -97,6 +103,7 @@
     git
     wget
     curl
+    (sddm-astronaut.override { embeddedTheme = "astronaut"; })
   ];
 
   system.stateVersion = "25.11";
