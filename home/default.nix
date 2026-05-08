@@ -7,6 +7,7 @@
     ./noctalia.nix
     ./ghostty.nix
     ./git.nix
+    ./gtk.nix
   ];
 
   home.username = "nusk";
@@ -32,13 +33,26 @@
     brightnessctl
     playerctl
     pavucontrol
-    thunar
     fuzzel
     bc
     eza
     claude-code
     discord
   ];
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = "nemo.desktop";
+      "application/x-gnome-saved-search" = "nemo.desktop";
+      "x-scheme-handler/http" = "vivaldi-stable.desktop";
+      "x-scheme-handler/https" = "vivaldi-stable.desktop";
+      "text/html" = "vivaldi-stable.desktop";
+      "x-scheme-handler/about" = "vivaldi-stable.desktop";
+      "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
+      "x-scheme-handler/claude-cli" = "claude-code-url-handler.desktop";
+    };
+  };
 
   programs.home-manager.enable = true;
 }
