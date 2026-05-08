@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  mactahoe = pkgs.callPackage ../pkgs/mactahoe-gtk-theme.nix { };
+  mactahoe = pkgs.callPackage ../../pkgs/mactahoe-gtk-theme.nix { };
   themeName = "MacTahoe-Dark";
 in
 {
