@@ -25,11 +25,11 @@
       system = "x86_64-linux";
     in
     {
-      nixosConfigurations.nixos-personal = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
         modules = [
-          ./system/configuration.nix
+          ./system/laptop/configuration.nix
           niri.nixosModules.niri
           home-manager.nixosModules.home-manager
           {
