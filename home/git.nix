@@ -25,5 +25,5 @@
     ];
   };
 
-  home.file.".config/github/commit_template".source = ./commit_template;
+  home.file.".config/github/commit_template".source = ../config/git/commit_template;
 }
