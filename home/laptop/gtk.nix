@@ -13,6 +13,7 @@ in
       name = themeName;
       package = mactahoe;
     };
+    gtk4.theme = config.gtk.theme;
   };
 
   # GTK4 / libadwaita apps look at ~/.config/gtk-4.0 directly,
