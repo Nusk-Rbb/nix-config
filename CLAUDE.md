@@ -4,18 +4,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository purpose
 
-Personal NixOS desktop flake. Single host (`nixos-personal`, `x86_64-linux`) and
+Personal NixOS flake. Two hosts (`laptop` and `desktop`, both `x86_64-linux`),
 single user (`nusk`). Stack: niri (compositor) + noctalia-shell (bar/shell) +
 ghostty + zed/vim + vivaldi/chrome.
 
+> `desktop` is the planned second host — its directory may not exist yet. When
+> adding it, mirror `system/laptop/` and add a matching `nixosConfigurations`
+> entry. Keep host-specific knobs (kernel, GPU, display, hostname,
+> `hardware-configuration.nix`) inside the host directory, and lift anything
+> shared by both hosts to a common module rather than duplicating.
+
 ## Architecture
 
-A single output in `flake.nix`:
+`flake.nix` exposes one `nixosConfigurations.<host>` output per machine:
 
-- `nixosConfigurations.nixos-personal` — system, built from
-  `system/configuration.nix` plus `inputs.niri.nixosModules.niri` and
-  `home-manager.nixosModules.home-manager`. Home-manager is integrated as a
-  NixOS module (`home-manager.users.nusk`), with `useGlobalPkgs = true` and
+- `nixosConfigurations.laptop` / `nixosConfigurations.desktop` — system, built
+  from `system/<host>/configuration.nix` plus `inputs.niri.nixosModules.niri`
+  and `home-manager.nixosModules.home-manager`. Home-manager is integrated as
+  a NixOS module (`home-manager.users.nusk`), with `useGlobalPkgs = true` and
   `useUserPackages = true`. The user's HM config imports `./home`,
   `inputs.niri.homeModules.niri`, and `inputs.noctalia.homeModules.default`.
 
@@ -28,13 +34,14 @@ reach flake inputs directly.
 
 ### Module split
 
-- `system/configuration.nix` — NixOS-only concerns: boot, locale, networking,
-  pipewire, fcitx5-mozc, xdg portals (gnome+gtk for niri), greetd+tuigreet,
-  fonts, the `nusk` user, and `programs.niri.enable = true` (the option comes
-  from `niri.nixosModules.niri`, which `disabledModules`'s the upstream
-  nixpkgs niri module — do not import both).
-- `system/hardware-configuration.nix` — machine-specific, must be regenerated
-  per host with `nixos-generate-config`.
+- `system/<host>/configuration.nix` — per-host NixOS config: boot, locale,
+  networking, pipewire, fcitx5-mozc, xdg portals (gnome+gtk for niri), display
+  manager, fonts, the `nusk` user, and `programs.niri.enable = true` (the
+  option comes from `niri.nixosModules.niri`, which `disabledModules`'s the
+  upstream nixpkgs niri module — do not import both). Currently only
+  `system/laptop/` exists; `system/desktop/` is planned.
+- `system/<host>/hardware-configuration.nix` — machine-specific, regenerated
+  per host with `nixos-generate-config --root <dir>` and committed.
 - `home/default.nix` — entrypoint. Sets `home.username`/`homeDirectory`/
   `stateVersion`, session env vars (Wayland, `XDG_CURRENT_DESKTOP=niri`,
   `EDITOR`/`BROWSER`/`TERMINAL`), common Wayland tools, and imports the rest.
@@ -49,10 +56,12 @@ reach flake inputs directly.
 
 ## Common commands
 
-System + home rebuild (run from repo root — applies both):
+System + home rebuild (run from repo root — applies both). Pick the host
+matching the machine you're on:
 
 ```sh
-sudo nixos-rebuild switch --flake .#nixos-personal
+sudo nixos-rebuild switch --flake .#laptop      # on the laptop
+sudo nixos-rebuild switch --flake .#desktop     # on the desktop (when added)
 ```
 
 Lock / update inputs (no `flake.lock` is committed yet — first build will
@@ -70,12 +79,39 @@ nix flake check
 nix flake show
 ```
 
-Iterating on a single module — evaluate the option to surface eval errors fast:
+Iterating on a single module — evaluate the option to surface eval errors fast
+(swap `laptop` for `desktop` as needed):
 
 ```sh
-nix eval .#nixosConfigurations.nixos-personal.config.programs.niri.enable
-nix eval .#nixosConfigurations.nixos-personal.config.home-manager.users.nusk.programs.ghostty.settings
+nix eval .#nixosConfigurations.laptop.config.programs.niri.enable
+nix eval .#nixosConfigurations.laptop.config.home-manager.users.nusk.programs.ghostty.settings
 ```
+
+## Pinning a `fetchFromGitHub` source
+
+When writing a custom derivation under `pkgs/`, pin both `rev` and `hash`.
+
+Get `rev` — always a full commit SHA, never a branch name (a branch would
+re-fetch on every eval and break reproducibility):
+
+```sh
+git ls-remote https://github.com/OWNER/REPO.git HEAD          # default branch tip
+git ls-remote https://github.com/OWNER/REPO.git v1.2.3        # tag
+gh api repos/OWNER/REPO/commits/main --jq .sha                # via gh CLI
+```
+
+Get `hash` — let Nix compute it. Set `hash = lib.fakeHash;`, build, then copy
+the `got: sha256-...=` line from the error back into the file:
+
+```sh
+nix build --impure --expr '(import <nixpkgs> {}).callPackage ./pkgs/foo.nix {}' --no-link
+# error: hash mismatch in fixed-output derivation ...
+#          specified: sha256-AAAAAAAA...
+#             got:    sha256-xS/RAPAREzteA6BRL3ZGrKk8Uml6/AjZRGQGQCOCrek=
+```
+
+Use the SRI form (`sha256-<base64>=`) — that's what nixpkgs prefers and what
+`fetchFromGitHub` returns in its error message.
 
 ## Conventions and gotchas
 
@@ -89,7 +125,7 @@ nix eval .#nixosConfigurations.nixos-personal.config.home-manager.users.nusk.pro
 - New home-manager files must be added to the `imports` list in
   `home/default.nix` — there is no auto-discovery.
 - `pkgs.vivaldi` and `pkgs.google-chrome` are unfree; `nixpkgs.config.allowUnfree`
-  is set once in `system/configuration.nix` and applies to HM via
+  must be set in each `system/<host>/configuration.nix` and applies to HM via
   `home-manager.useGlobalPkgs = true`. Do **not** set `nixpkgs.config.*` inside
   `home/` — it errors under `useGlobalPkgs`.
 - niri's cachix (`https://niri.cachix.org`) is intentionally **not**
