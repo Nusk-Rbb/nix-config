@@ -45,7 +45,7 @@
       };
       colorSchemes.predefinedScheme = "Monochrome";
       general = {
-        avatarImage = "/home/drfoobar/.face";
+        avatarImage = "/home/nusk/.face";
         radiusRatio = 0.2;
       };
       location = {
@@ -54,4 +54,6 @@
       };
     };
   };
+
+  home.file.".face".source = ../../images/face.png;
 }

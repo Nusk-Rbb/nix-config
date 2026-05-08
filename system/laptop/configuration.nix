@@ -107,7 +107,7 @@
     wget
     curl
     nemo-with-extensions
-    (sddm-astronaut.override { embeddedTheme = "astronaut"; })
+    (sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
   system.stateVersion = "25.11";
