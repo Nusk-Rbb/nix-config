@@ -40,7 +40,7 @@
               extraSpecialArgs = { inherit inputs; };
               users.nusk = {
                 imports = [
-                  ./home
+                  ./home/laptop
                   noctalia.homeModules.default
                 ];
               };
