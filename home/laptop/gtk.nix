@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   mactahoe = pkgs.callPackage ../pkgs/mactahoe-gtk-theme.nix { };
