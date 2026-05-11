@@ -60,6 +60,7 @@
       default = [ "gnome" "gtk" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
   };
 
@@ -98,6 +99,7 @@
   };
 
   programs.fish.enable = true;
+  programs.nix-ld.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -106,7 +108,6 @@
     git
     wget
     curl
-    nemo-with-extensions
     (sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 

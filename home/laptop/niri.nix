@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.niri.settings = {
@@ -41,6 +41,7 @@
     spawn-at-startup = [
       { command = [ "noctalia-shell" ]; }
       { command = [ "fcitx5" "-d" ]; }
+      { command = [ "xwayland-satelite" ]; }
     ];
 
     binds = with config.lib.niri.actions; {
