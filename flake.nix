@@ -1,48 +1,52 @@
 {
-    description = "My NixOS Flakes";
+  description = "NixOS desktop: niri + noctalia-shell";
 
-    inputs = {
-	    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-      nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-      home-manager = {
-        url = "github:nix-community/home-manager/release-25.11";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      illogical-flake = {
-         url = "github:soymou/illogical-flake";
-         inputs.nixpkgs.follows = "nixpkgs";
-       };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, illogical-flake, ... }@inputs:
-	let
-	    lib = nixpkgs.lib;
-	    system = "x86_64-linux";
-	    pkgs = nixpkgs.legacyPackages.${system};
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-	in
-    {
-		nixosConfigurations.nixos-personal = lib.nixosSystem {
-                inherit system;
-				modules = [
-                    ./system/configuration.nix
-				];
-                specialArgs = {
-                    inherit pkgs-unstable;
-                };
-        };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-		homeConfigurations = {
-			nusk = home-manager.lib.homeManagerConfiguration {
-				inherit pkgs;
-				modules = [ ./home ];
-                extraSpecialArgs = {
-                    inherit pkgs-unstable;
-                    inherit inputs;
-                };
-			};
-		};
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, home-manager, niri, noctalia, ... }@inputs:
+    let
+      system = "x86_64-linux";
+    in
+    {
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./system/laptop/configuration.nix
+          niri.nixosModules.niri
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "hm-bak";
+              extraSpecialArgs = { inherit inputs; };
+              users.nusk = {
+                imports = [
+                  ./home/laptop
+                  noctalia.homeModules.default
+                ];
+              };
+            };
+          }
+        ];
+      };
     };
 }

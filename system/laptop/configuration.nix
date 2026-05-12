@@ -60,12 +60,18 @@
       default = [ "gnome" "gtk" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
   };
 
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
   programs.dconf.enable = true;
+  services.tuned.enable = true;
+  services.upower.enable = true;
+
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -95,6 +101,7 @@
   };
 
   programs.fish.enable = true;
+  programs.nix-ld.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -103,7 +110,7 @@
     git
     wget
     curl
-    (sddm-astronaut.override { embeddedTheme = "astronaut"; })
+    (sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
   system.stateVersion = "25.11";
