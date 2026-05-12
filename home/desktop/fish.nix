@@ -6,7 +6,7 @@
     shellAliases = {
       nv = "nvim";
       ip = "ip -c";
-      cls = "clear"
+      cls = "clear";
     };
     plugins = [
       {

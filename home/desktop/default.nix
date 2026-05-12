@@ -9,6 +9,7 @@
     ./git.nix
     ./gtk.nix
     ./qt.nix
+    ./fish.nix
   ];
 
   home.username = "nusk";
