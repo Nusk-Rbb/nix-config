@@ -41,6 +41,7 @@
     kdePackages.dolphin
     claude-code
     discord
+    vicinae
   ];
 
   xdg.mimeApps = {

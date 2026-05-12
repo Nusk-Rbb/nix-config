@@ -52,6 +52,7 @@
       "Mod+E".action = spawn "dolphin";
       "Mod+Q".action = close-window;
       "Mod+Shift+E".action = quit;
+      "Mod".action = spawn "vicinae";
 
       "Mod+H".action = focus-column-left;
       "Mod+L".action = focus-column-right;
@@ -102,7 +103,6 @@
 
       "Mod+Ctrl+L".action = spawn "noctalia-shell ipc call lockScreen lock";
       "Mod+P".action = spawn "noctalia-shell ipc call sessionMenu toggle";
-      "Mod+D".action = spawn "noctalia-shell ipc call launcher toggle";
     };
   };
 }
