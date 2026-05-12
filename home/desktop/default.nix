@@ -10,6 +10,7 @@
     ./gtk.nix
     ./qt.nix
     ./fish.nix
+    ./fastfetch.nix
   ];
 
   home.username = "nusk";
