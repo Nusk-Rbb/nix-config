@@ -1,15 +1,15 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.niri.settings = {
-    outputs."eDP-1" = {
-      mode = {
-        width = 1920;
-        height = 1080;
-        refresh = 60.0;
-      };
-      scale = 1.0;
-    };
+    #outputs."eDP-1" = {
+    #  mode = {
+    #    width = 1920;
+    #    height = 1080;
+    #    refresh = 60.0;
+    #  };
+    #  scale = 1.0;
+    #};
 
     input = {
       keyboard.xkb = {
@@ -41,16 +41,19 @@
     spawn-at-startup = [
       { command = [ "noctalia-shell" ]; }
       { command = [ "fcitx5" "-d" ]; }
+      { command = [ "xwayland-satellite" ]; }
+      { command = [ "vicinae" "server" ]; }
     ];
 
     binds = with config.lib.niri.actions; {
       "Mod+Return".action = spawn "ghostty";
-      "Mod+B".action = spawn "vivaldi";
-      "Mod+Shift+B".action = spawn "google-chrome-stable";
-      "Mod+E".action = spawn "zeditor";
-      "Mod+D".action = spawn "fuzzel";
+      "Mod+W".action = spawn "vivaldi";
+      "Mod+Shift+W".action = spawn "google-chrome-stable";
+      "Mod+Z".action = spawn "zeditor";
+      "Mod+E".action = spawn "dolphin";
       "Mod+Q".action = close-window;
       "Mod+Shift+E".action = quit;
+      "Mod+D".action = spawn "vicinae" "toggle";
 
       "Mod+H".action = focus-column-left;
       "Mod+L".action = focus-column-right;
@@ -87,14 +90,20 @@
       "Mod+Shift+F".action = fullscreen-window;
 
       "Print".action.screenshot = {};
+      "Mod+Shift+S".action.screenshot = {};
       "Ctrl+Print".action.screenshot-screen = {};
+      "Mod+Ctrl+S".action.screenshot-screen = {};
       "Alt+Print".action.screenshot-window = {};
+      "Mod+Alt+S".action.screenshot-window = {};
 
       "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+";
       "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-";
       "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
       "XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "5%+";
       "XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "5%-";
+
+      "Mod+Ctrl+L".action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
+      "Mod+P".action = spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle";
     };
   };
 }

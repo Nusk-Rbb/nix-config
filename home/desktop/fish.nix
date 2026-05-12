@@ -6,6 +6,7 @@
     shellAliases = {
       nv = "nvim";
       ip = "ip -c";
+      cls = "clear"
     };
     plugins = [
       {
@@ -18,15 +19,15 @@
   home = {
     file = {
       fish_prompt = {
-        source = ../config/fish/fish_prompt.fish;
+        source = ../../config/fish/fish_prompt.fish;
         target = ".config/fish/functions/fish_prompt.fish";
       };
       fish_right_prompt = {
-        source = ../config/fish/fish_right_prompt.fish;
+        source = ../../config/fish/fish_right_prompt.fish;
         target = ".config/fish/functions/fish_right_prompt.fish";
       };
       scheme = {
-        source = ../config/fish/scheme.fish;
+        source = ../../config/fish/scheme.fish;
         target = ".config/fish/functions/scheme.fish";
       };
     };

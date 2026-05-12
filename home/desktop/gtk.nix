@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
-  mactahoe = pkgs.callPackage ../pkgs/mactahoe-gtk-theme.nix { };
+  mactahoe = pkgs.callPackage ../../pkgs/mactahoe-gtk-theme.nix { };
   themeName = "MacTahoe-Dark";
 in
 {
@@ -13,6 +13,7 @@ in
       name = themeName;
       package = mactahoe;
     };
+    gtk4.theme = config.gtk.theme;
   };
 
   # GTK4 / libadwaita apps look at ~/.config/gtk-4.0 directly,

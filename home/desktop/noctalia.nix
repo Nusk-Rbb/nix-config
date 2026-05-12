@@ -19,6 +19,16 @@
             {
               id = "Bluetooth";
             }
+            {
+              id = "SystemMonitor";
+              compactMode = false;
+              showCpuTemp = false;
+              showDiskUsage = true;
+            }
+            {
+              id = "MediaMini";
+              maxWidth = 500;
+            }
           ];
           center = [
             {
@@ -29,13 +39,13 @@
           ];
           right = [
             {
-              alwaysShowPercentage = false;
+              alwaysShowPercentage = true;
               id = "Battery";
               warningThreshold = 30;
             }
             {
-              formatHorizontal = "HH:mm";
-              formatVertical = "HH mm";
+              formatHorizontal = "ddd mm/dd HH:mm:ss";
+              formatVertical = "HH:mm:ss";
               id = "Clock";
               useMonospacedFont = true;
               usePrimaryColor = true;
@@ -45,7 +55,7 @@
       };
       colorSchemes.predefinedScheme = "Monochrome";
       general = {
-        avatarImage = "/home/drfoobar/.face";
+        avatarImage = "/home/nusk/.face";
         radiusRatio = 0.2;
       };
       location = {
@@ -54,4 +64,6 @@
       };
     };
   };
+
+  home.file.".face".source = ../../images/face.png;
 }

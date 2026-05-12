@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [
@@ -8,6 +8,7 @@
     ./ghostty.nix
     ./git.nix
     ./gtk.nix
+    ./qt.nix
   ];
 
   home.username = "nusk";
@@ -36,8 +37,11 @@
     fuzzel
     bc
     eza
+    xwayland-satellite
+    kdePackages.dolphin
     claude-code
     discord
+    vicinae
   ];
 
   xdg.mimeApps = {

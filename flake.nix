@@ -48,5 +48,29 @@
           }
         ];
       };
+
+      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./system/desktop/configuration.nix
+          niri.nixosModules.niri
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "hm-bak";
+              extraSpecialArgs = { inherit inputs; };
+              users.nusk = {
+                imports = [
+                  ./home/desktop
+                  noctalia.homeModules.default
+                ];
+              };
+            };
+          }
+        ];
+      };
     };
 }
