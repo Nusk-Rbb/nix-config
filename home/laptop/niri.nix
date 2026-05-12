@@ -100,7 +100,7 @@
       "XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "5%+";
       "XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "5%-";
 
-      "Mod+L".action = spawn "noctalia-shell ipc call lockScreen lock";
+      "Mod+Ctrl+L".action = spawn "noctalia-shell ipc call lockScreen lock";
       "Mod+P".action = spawn "noctalia-shell ipc call sessionMenu toggle";
       "Mod+D".action = spawn "noctalia-shell ipc call launcher toggle";
     };
