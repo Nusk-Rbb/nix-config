@@ -53,7 +53,7 @@
       "Mod+E".action = spawn "dolphin";
       "Mod+Q".action = close-window;
       "Mod+Shift+E".action = quit;
-      "Mod+D".action = spawn "vicinae toggle";
+      "Mod+D".action = spawn "vicinae" "toggle";
 
       "Mod+H".action = focus-column-left;
       "Mod+L".action = focus-column-right;
@@ -102,8 +102,8 @@
       "XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "5%+";
       "XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "5%-";
 
-      "Mod+Ctrl+L".action = spawn "noctalia-shell ipc call lockScreen lock";
-      "Mod+P".action = spawn "noctalia-shell ipc call sessionMenu toggle";
+      "Mod+Ctrl+L".action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
+      "Mod+P".action = spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle";
     };
   };
 }
