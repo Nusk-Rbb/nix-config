@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 
-in
 {
   programs.niri.settings = {
     outputs."eDP-1" = {
