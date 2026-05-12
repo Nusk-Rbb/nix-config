@@ -112,7 +112,7 @@
 
   programs.steam = {
     enable = true;
-    extraCompactPackages = with pkgs; [
+    extraCompatPackages = with pkgs; [
       proton-ge-bin
     ];
   };
