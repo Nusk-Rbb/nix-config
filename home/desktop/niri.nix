@@ -80,8 +80,8 @@
 
       "Mod+Shift+H".action = move-column-to-monitor-left;
       "Mod+Shift+L".action = move-column-to-monitor-right;
-      "Mod+Shift+J".action = move-window-down;
-      "Mod+Shift+K".action = move-window-up;
+      "Mod+Shift+J".action = move-column-right;
+      "Mod+Shift+K".action = move-column-left;
 
       "Mod+Left".action = focus-monitor-left;
       "Mod+Right".action = focus-monitor-right;
