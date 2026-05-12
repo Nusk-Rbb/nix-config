@@ -42,6 +42,7 @@
       { command = [ "noctalia-shell" ]; }
       { command = [ "fcitx5" "-d" ]; }
       { command = [ "xwayland-satelite" ]; }
+      { command = [ "vicinae server" ]; }
     ];
 
     binds = with config.lib.niri.actions; {
@@ -52,7 +53,7 @@
       "Mod+E".action = spawn "dolphin";
       "Mod+Q".action = close-window;
       "Mod+Shift+E".action = quit;
-      "Mod+D".action = spawn "vicinae";
+      "Mod+D".action = spawn "vicinae toggle";
 
       "Mod+H".action = focus-column-left;
       "Mod+L".action = focus-column-right;
