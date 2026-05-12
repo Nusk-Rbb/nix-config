@@ -2,14 +2,25 @@
 
 {
   programs.niri.settings = {
-    #outputs."eDP-1" = {
-    #  mode = {
-    #    width = 1920;
-    #    height = 1080;
-    #    refresh = 60.0;
-    #  };
-    #  scale = 1.0;
-    #};
+    outputs."HDMI-A-2" = {
+      mode = {
+        width = 1920;
+        height = 1080;
+        refresh = 200.0;
+      };
+      scale = 1.0;
+      position = { x = 0; y = 0; };
+    };
+
+    outputs."DP-2" = {
+      mode = {
+        width = 3840;
+        height = 2160;
+        refresh = 160.0;
+      };
+      scale = 1.5;
+      position = { x = 1920; y = 0; };
+    };
 
     input = {
       keyboard.xkb = {
@@ -36,6 +47,11 @@
       };
     };
 
+    window-rules = [
+      matches = [ { app-id = "^dev\\.zed\\.Zed$"; } ];
+      draw-border-with-background = false;
+    ];
+
     prefer-no-csd = true;
 
     spawn-at-startup = [
@@ -60,10 +76,15 @@
       "Mod+J".action = focus-window-down;
       "Mod+K".action = focus-window-up;
 
-      "Mod+Shift+H".action = move-column-left;
-      "Mod+Shift+L".action = move-column-right;
+      "Mod+Shift+H".action = move-column-to-monitor-left;
+      "Mod+Shift+L".action = move-column-to-monitor-right;
       "Mod+Shift+J".action = move-window-down;
       "Mod+Shift+K".action = move-window-up;
+
+      "Mod+Left".action = focus-monitor-left;
+      "Mod+Right".action = focus-monitor-right;
+      "Mod+Up".action = focus-monitor-up;
+      "Mod+Down".action = focus-monitor-down;
 
       "Mod+1".action = focus-workspace 1;
       "Mod+2".action = focus-workspace 2;
