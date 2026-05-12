@@ -48,8 +48,10 @@
     };
 
     window-rules = [
-      matches = [ { app-id = "^dev\\.zed\\.Zed$"; } ];
-      draw-border-with-background = false;
+      {
+        matches = [ { app-id = "^dev\\.zed\\.Zed$"; } ];
+        draw-border-with-background = false;
+      }
     ];
 
     prefer-no-csd = true;
