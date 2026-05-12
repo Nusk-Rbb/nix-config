@@ -52,7 +52,7 @@
       "Mod+E".action = spawn "dolphin";
       "Mod+Q".action = close-window;
       "Mod+Shift+E".action = quit;
-      "Mod".action = spawn "vicinae";
+      "Mod+D".action = spawn "vicinae";
 
       "Mod+H".action = focus-column-left;
       "Mod+L".action = focus-column-right;
