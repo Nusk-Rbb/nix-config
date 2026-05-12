@@ -41,8 +41,8 @@
     spawn-at-startup = [
       { command = [ "noctalia-shell" ]; }
       { command = [ "fcitx5" "-d" ]; }
-      { command = [ "xwayland-satelite" ]; }
-      { command = [ "vicinae server" ]; }
+      { command = [ "xwayland-satellite" ]; }
+      { command = [ "vicinae" "server" ]; }
     ];
 
     binds = with config.lib.niri.actions; {
