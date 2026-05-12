@@ -20,7 +20,14 @@
               id = "Bluetooth";
             }
             {
-              id = "Media";
+              id = "SystemMonitor";
+              compactMode = false;
+              showCpuTemp = false;
+              showDiskUsage = true;
+            }
+            {
+              id = "MediaMini";
+              maxWidth = 500;
             }
           ];
           center = [
@@ -37,8 +44,8 @@
               warningThreshold = 30;
             }
             {
-              formatHorizontal = "HH:mm";
-              formatVertical = "HH mm";
+              formatHorizontal = "ddd mm/dd HH:mm:ss";
+              formatVertical = "HH:mm:ss";
               id = "Clock";
               useMonospacedFont = true;
               usePrimaryColor = true;
