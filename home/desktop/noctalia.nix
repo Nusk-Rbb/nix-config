@@ -44,7 +44,7 @@
               warningThreshold = 30;
             }
             {
-              formatHorizontal = "ddd mm/dd HH:mm:ss";
+              formatHorizontal = "ddd MM/dd HH:mm:ss";
               formatVertical = "HH:mm:ss";
               id = "Clock";
               useMonospacedFont = true;
