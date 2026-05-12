@@ -6,8 +6,8 @@ in
 {
   qt = {
     enable = true;
-    platformTheme.name = "kvantum";
-    style.name = "kvantum-dark";
+    platformTheme.name = "gtk";
+    style.name = "kvantum";
   };
 
   home.packages = with pkgs; [
@@ -15,9 +15,4 @@ in
     libsForQt5.qtstyleplugin-kvantum
     kdePackages.qtstyleplugin-kvantum
   ];
-
-  xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
-    [General]
-    theme=MacTahoeDark
-  '';
 }
