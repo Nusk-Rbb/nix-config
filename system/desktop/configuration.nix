@@ -104,6 +104,19 @@
   programs.fish.enable = true;
   programs.nix-ld.enable = true;
 
+  # For Games
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  programs.steam = {
+    enable = true;
+    extraCompactPackages = with pkgs; [
+      proton-ge-bin
+    ];
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
