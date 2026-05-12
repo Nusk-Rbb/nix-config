@@ -19,6 +19,9 @@
             {
               id = "Bluetooth";
             }
+            {
+              id = "Media";
+            }
           ];
           center = [
             {
@@ -29,7 +32,7 @@
           ];
           right = [
             {
-              alwaysShowPercentage = false;
+              alwaysShowPercentage = true;
               id = "Battery";
               warningThreshold = 30;
             }

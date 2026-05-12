@@ -67,6 +67,8 @@
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
   programs.dconf.enable = true;
+  services.tuned.enable = true;
+  services.upower.enable = true;
 
   services.gvfs.enable = true;
   services.tumbler.enable = true;
