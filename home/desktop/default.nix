@@ -44,6 +44,8 @@
     claude-code
     discord
     vicinae
+    nil
+    nixd
   ];
 
   xdg.mimeApps = {
