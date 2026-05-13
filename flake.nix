@@ -20,12 +20,12 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, niri, noctalia, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, niri, noctalia, lanzaboote, ... }@inputs:
     let
       system = "x86_64-linux";
     in
@@ -61,7 +61,7 @@
           ./system/desktop/configuration.nix
           niri.nixosModules.niri
           home-manager.nixosModules.home-manager
-          # lanzaboote.nixosModules.lanzaboote
+          lanzaboote.nixosModules.lanzaboote
           {
             home-manager = {
               useGlobalPkgs = true;

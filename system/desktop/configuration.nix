@@ -1,17 +1,23 @@
 { config, pkgs, lib, ... }:
 
+let
+  sources = import ./lon.nix;
+  lanzaboote = import sources.lanzaboote {
+    inherit pkgs;
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
-  # boot.lanzaboote = {
-  #   enable = true;
-  #   pkiBundle = "/var/lib/sbctl";
-  # };
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -145,6 +151,9 @@
     curl
     sbctl
     lon
+    xrizer
+    wayvr            # VR内オーバーレイ、入れておくと便利
+    android-tools    # 有線WiVRnやAPKサイドロード用
     (sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
