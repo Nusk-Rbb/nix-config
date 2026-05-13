@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -8,6 +8,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
+  # boot.lanzaboote = {
+  #   enable = true;
+  #   pkiBundle = "/var/lib/sbctl";
+  # };
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -117,6 +121,21 @@
     ];
   };
 
+  # WiVRnサーバー
+  services.wivrn = {
+    enable = true;
+    openFirewall = true;          # 必要なポートを自動で開ける
+    # SteamVR用ゲームをWiVRn(OpenXR)で動かすための互換レイヤ
+    monadoEnvironment = {
+      XRT_COMPOSITOR_LOG = "debug";
+      XRT_PRINT_OPTIONS = "on";
+      IPC_EXIT_ON_DISCONNECT = "off";
+    };
+
+    # autoStart = true で起動時から動かせるが、手動起動の方が安定
+    autoStart = false;
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -124,6 +143,8 @@
     git
     wget
     curl
+    sbctl
+    lon
     (sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
