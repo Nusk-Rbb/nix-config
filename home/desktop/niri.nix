@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   programs.niri.settings = {
@@ -9,7 +9,10 @@
         refresh = 200.0;
       };
       scale = 1.0;
-      position = { x = 0; y = 0; };
+      position = {
+        x = 0;
+        y = 0;
+      };
     };
 
     outputs."DP-2" = {
@@ -19,7 +22,10 @@
         refresh = 160.0;
       };
       scale = 1.5;
-      position = { x = 1920; y = 0; };
+      position = {
+        x = 1920;
+        y = 0;
+      };
     };
 
     input = {
@@ -40,7 +46,9 @@
         { proportion = 1.0 / 2.0; }
         { proportion = 2.0 / 3.0; }
       ];
-      default-column-width = { proportion = 1.0 / 2.0; };
+      default-column-width = {
+        proportion = 1.0 / 2.0;
+      };
       focus-ring = {
         width = 1;
         active.color = "#7fc8ff";
@@ -58,9 +66,19 @@
 
     spawn-at-startup = [
       { command = [ "noctalia-shell" ]; }
-      { command = [ "fcitx5" "-d" ]; }
+      {
+        command = [
+          "fcitx5"
+          "-d"
+        ];
+      }
       { command = [ "xwayland-satellite" ]; }
-      { command = [ "vicinae" "server" ]; }
+      {
+        command = [
+          "vicinae"
+          "server"
+        ];
+      }
     ];
 
     binds = with config.lib.niri.actions; {
@@ -112,12 +130,12 @@
       "Mod+F".action = maximize-column;
       "Mod+Shift+F".action = fullscreen-window;
 
-      "Print".action.screenshot = {};
-      "Mod+Shift+S".action.screenshot = {};
-      "Ctrl+Print".action.screenshot-screen = {};
-      "Mod+Ctrl+S".action.screenshot-screen = {};
-      "Alt+Print".action.screenshot-window = {};
-      "Mod+Alt+S".action.screenshot-window = {};
+      "Print".action.screenshot = { };
+      "Mod+Shift+S".action.screenshot = { };
+      "Ctrl+Print".action.screenshot-screen = { };
+      "Mod+Ctrl+S".action.screenshot-screen = { };
+      "Alt+Print".action.screenshot-window = { };
+      "Mod+Alt+S".action.screenshot-window = { };
 
       "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+";
       "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-";
