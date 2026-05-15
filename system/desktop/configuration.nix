@@ -1,11 +1,5 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
-let
-  sources = import ./lon.nix;
-  lanzaboote = import sources.lanzaboote {
-    inherit pkgs;
-  };
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -68,7 +62,10 @@ in
       xdg-desktop-portal-gtk
     ];
     config.niri = {
-      default = [ "gnome" "gtk" ];
+      default = [
+        "gnome"
+        "gtk"
+      ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
       "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
@@ -102,12 +99,20 @@ in
     nerd-fonts.symbols-only
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   users.users.nusk = {
     isNormalUser = true;
     description = "nusk";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+    ];
     shell = pkgs.fish;
   };
 
@@ -130,7 +135,7 @@ in
   # WiVRnサーバー
   services.wivrn = {
     enable = true;
-    openFirewall = true;          # 必要なポートを自動で開ける
+    openFirewall = true; # 必要なポートを自動で開ける
     # SteamVR用ゲームをWiVRn(OpenXR)で動かすための互換レイヤ
     monadoEnvironment = {
       XRT_COMPOSITOR_LOG = "debug";
@@ -152,8 +157,8 @@ in
     sbctl
     lon
     xrizer
-    wayvr            # VR内オーバーレイ、入れておくと便利
-    android-tools    # 有線WiVRnやAPKサイドロード用
+    wayvr # VR内オーバーレイ、入れておくと便利
+    android-tools # 有線WiVRnやAPKサイドロード用
     (sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
