@@ -117,7 +117,64 @@
   };
 
   programs.fish.enable = true;
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      # OpenGL / グラフィック
+      libGL
+      libglvnd
+      mesa
+      libdrm
+      libgbm
+
+      # X11関連 (XWayland経由でUnityが使う)
+      libx11
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxi
+      libxrandr
+      libxrender
+      libxscrnsaver
+      libxtst
+      libxcb
+      libxkbfile
+
+      # GTK / GUI
+      gtk3
+      glib
+      pango
+      cairo
+      gdk-pixbuf
+      atk
+      at-spi2-atk
+      at-spi2-core
+
+      # フォント
+      fontconfig
+      freetype
+
+      # オーディオ
+      alsa-lib
+      pulseaudio
+
+      # その他必須系
+      libxkbcommon
+      nss
+      nspr
+      cups
+      dbus
+      expat
+      systemd
+      zlib
+      stdenv.cc.cc.lib
+      libuuid
+      libsecret
+      krb5
+    ];
+  };
 
   # For Games
   hardware.graphics = {

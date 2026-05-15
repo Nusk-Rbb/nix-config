@@ -46,6 +46,8 @@
     vicinae
     nil
     nixd
+    alcom
+    unityhub
   ];
 
   xdg.mimeApps = {
