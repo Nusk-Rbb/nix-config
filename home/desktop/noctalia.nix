@@ -39,16 +39,16 @@
           ];
           right = [
             {
-              alwaysShowPercentage = true;
+              displayMode = "graphic";
               id = "Battery";
-              warningThreshold = 30;
             }
             {
+              clockColor = "primary";
+              customFont = "JetBrainsMono Nerd Font";
               formatHorizontal = "ddd MM/dd HH:mm:ss";
               formatVertical = "HH:mm:ss";
               id = "Clock";
-              useMonospacedFont = true;
-              usePrimaryColor = true;
+              useCustomFont = true;
             }
           ];
         };
@@ -59,7 +59,6 @@
         radiusRatio = 0.2;
       };
       location = {
-        monthBeforeDay = true;
         name = "Tokyo, Japan";
       };
     };
