@@ -17,6 +17,7 @@
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+  services.tailscale.enable = true;
 
   time.timeZone = "Asia/Tokyo";
 
@@ -173,6 +174,14 @@
       libuuid
       libsecret
       krb5
+
+      libxml2_13
+      icu
+      gtk2
+      nspr
+      giflib
+      libjpeg
+      libpng
     ];
   };
 

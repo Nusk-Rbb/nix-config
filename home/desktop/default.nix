@@ -48,6 +48,7 @@
     nixd
     alcom
     unityhub
+    obsidian
   ];
 
   xdg.mimeApps = {

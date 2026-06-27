@@ -48,6 +48,7 @@
       "rw"
       "user"
       "nofail"
+      "exec"
       "dmask=002"
       "fmask=113"
     ];
