@@ -57,7 +57,12 @@
 
     window-rules = [
       {
-        matches = [ { app-id = "^dev\\.zed\\.Zed$"; } ];
+        matches = [
+          {
+            app-id = "dev.zed.Zed";
+          }
+        ];
+        opacity = 0.9;
         draw-border-with-background = false;
       }
     ];

@@ -1,8 +1,24 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
+  ];
+
+  # niri-flake 9ee3e13 builds against `libdisplay-info_0_2`, removed from
+  # nixpkgs on 2026-08-04. Re-introduce the 0.2.0 package from the pinned
+  # pre-removal nixpkgs so the compositor keeps building on unstable.
+  nixpkgs.overlays = [
+    (final: prev: {
+      inherit (inputs.nixpkgs-niri.legacyPackages.${prev.stdenv.hostPlatform.system})
+        libdisplay-info_0_2
+        ;
+    })
   ];
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
